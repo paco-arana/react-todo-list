@@ -1,70 +1,37 @@
-# Getting Started with Create React App TEST
+# To Do App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Functional Requirements 
 
-## Available Scripts
+You are working with a client that needs to implement a to do list to help manage their tasks in their daily job. The client asked you to implement the following functionality: 
 
-In the project directory, you can run:
+- Create a “to do” specifying the name, a priority, and possibly a due date 
 
-### `npm start`
+- Ability to edit name, priority and due date for existing “to do” tasks. They want to be able to specify a due date or clear the due date (because they are not interested in when to finish that “to do”) 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Be able to filter “to do’s” specifying the name (or part of the name), and the priority, and if they are done/undone. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Be able to sort the “to do’s” by priority and/or due date. For example, be able to sort items where their due date is soon and sort them also by priority to see what tasks are more urgent or less urgent 
 
-### `npm test`
+- Mark “to do’s” as done (clicking in a checkbox) or to undone a “to do” - The undone functionality is just there if there is a mistake :D 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Since it is possible that the client will have a lot of “to do’s” they need to paginate the list of “to do’s” 
 
-### `npm run build`
+- Ability to know, in average, the time between creation and done for all “to do’s”. This should be shown in general for all done “to do’s” and also grouped by priority. This is important for the client since this is a metric they follow to measure performance. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## UI Requirements:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![User interface requirements according to UI Team](./ui_sample.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Search/Filtering Controls 
 
-### `npm run eject`
+2. New To Do Button. This should open a modal to type the “to do” data. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Priority column should show in the header the classic up and down arrows to allow the user to sort 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Due date column should show in the header the classic up and own arrows to allow the user to sort 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Action column to show actions (links/buttons) to allow the user to delete or edit a “to do”. To Edit is ok to show a modal similar to the one to create a “to do” 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. Pagination control. Showing the pages, its number and the next and previous page is enough. 
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+7. Area to show the metrics 
