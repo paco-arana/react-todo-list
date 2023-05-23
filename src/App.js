@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlinePlus, AiOutlineCloseCircle } from "react-icons/ai";
+import { TbArrowsDownUp } from "react-icons/tb";
 
 import Todo from "./Todo";
+import Search from "./Search";
 
 import { db } from "./firebase";
 import {
@@ -25,6 +27,8 @@ const style = {
   close: `border p-4 ml-2 bg-red-400 rounded-md`,
   addbutton: `border text-xl p-4 bg-blue-400 rounded-md w-full`,
   datalist: `border p-2 w-full text-xl rounded-md`,
+  prioritybutton: `flex text-center pt-2 pl-5 m-auto`,
+  duebutton: `flex text-center pt-2 pr-2 m-auto`,
 };
 
 function App() {
@@ -36,6 +40,10 @@ function App() {
   const [qkeywords, setQKeywords] = useState("");
   const [qpriority, setQPriority] = useState("");
   const [qstatus, setQStatus] = useState("");
+  // const [sortbyduedate, setSortbyduedate] = useState(false);
+  const [sortbypriority, setSortbypriority] = useState(false);
+  const [newPriority, setNewPriority] = useState("");
+  const [newDueDate, setNewDueDate] = useState("");
 
   //  Create todo
   const createTodo = async (e) => {
@@ -76,9 +84,17 @@ function App() {
     });
   };
 
-  //  Delete todo
+  // Delete todo
   const deleteTodo = async (id) => {
     await deleteDoc(doc(db, "todos", id));
+  };
+
+  // Edit todo
+  const editTodo = async (todo) => {
+    await updateDoc(doc(db, "todos", todo.id), {
+      priority: newPriority,
+      due: newDueDate,
+    });
   };
 
   // Search todos
@@ -116,37 +132,15 @@ function App() {
     <div className={style.bg}>
       <div className={style.container}>
         <h3 className={style.heading}>ToDo App</h3>
-        <form onSubmit={searchTodos} className={style.form}>
-          <input
-            value={qkeywords}
-            onChange={(e) => setQKeywords(e.target.value)}
-            className={style.input}
-            type="text"
-            placeholder="Add keywords..."
-          />
-          <select
-            value={qpriority}
-            onChange={(e) => setQPriority(e.target.value)}
-            id="priorityInput"
-            className={style.input}
-            placeholder="Select priority">
-            <option value="">All priorities...</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-          <select
-            value={qstatus}
-            onChange={(e) => setQStatus(e.target.value)}
-            id="priorityInput"
-            className={style.input}
-            placeholder="Select priority">
-            <option value="">All States...</option>
-            <option value="true">Done</option>
-            <option value="false">Undone</option>
-          </select>
-          <button className={style.button}>Search</button>
-        </form>
+        <Search
+          qkeywords={qkeywords}
+          setQKeywords={setQKeywords}
+          qpriority={qpriority}
+          setQPriority={setQPriority}
+          qstatus={qstatus}
+          setQStatus={setQStatus}
+          searchTodos={searchTodos}
+        />
         {showForm ? (
           <form onSubmit={createTodo} className={style.form}>
             <input
@@ -186,6 +180,23 @@ function App() {
             Add a new to-do
           </button>
         )}
+        <div className="grid grid-cols-4">
+          <div></div>
+          <div
+            className={style.prioritybutton}
+            onClick={() => setSortbypriority(true)}>
+            <strong>Priority</strong>
+            <TbArrowsDownUp size={27} />
+          </div>
+          <div
+            className={style.duebutton}
+            // onClick={() => setSortbyduedate(true)}
+          >
+            <strong>Due</strong>
+            <TbArrowsDownUp size={27} />
+          </div>
+          <div></div>
+        </div>
         <div>
           {todos.map((todo, index) => (
             <Todo
@@ -193,6 +204,9 @@ function App() {
               todo={todo}
               toggleComplete={toggleComplete}
               deleteTodo={deleteTodo}
+              newPriority={setNewPriority}
+              newDueDate={setNewDueDate}
+              editTodo={editTodo}
             />
           ))}
         </div>
